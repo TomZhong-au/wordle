@@ -1,7 +1,5 @@
 export type TextContextType = {
-  input: {
-    currentInput: string;
-    word: string;
-  };
+  words: string[];
   handleKeyClick: (arg: string) => void;
+  attempt: number;
 };

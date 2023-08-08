@@ -1,13 +1,13 @@
-import { useTextContext } from "../../context/useTextContext";
+import React from "react";
 import { KeyCapProps } from "../../interface/components.interface";
 import styled from "styled-components";
 
-const KeyCap = ({ letter }: KeyCapProps) => {
-  const { handleKeyClick } = useTextContext();
+// memo is really working here, it prevents all the keys from re-rendering
+const KeyCap = React.memo(({ letter, handleKeyClick }: KeyCapProps) => {
   return (
     <StyledButton onClick={() => handleKeyClick(letter)}>{letter}</StyledButton>
   );
-};
+});
 
 export default KeyCap;
 
