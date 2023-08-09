@@ -15,24 +15,39 @@ export const TextContextProvider = ({
 
   const handleKeyClick = useCallback(
     (letter: string) => {
+      const currentWord = words[attempt];
+
+      // two input check here,
+      // 1. if 'enter', only let it submit when there are 5 letters
+      // 2. if there are already 5 letters, unless it is 'delete
+      if (letter === "ENTER") {
+        if (letter.length === 5) return submitAnswer(currentWord);
+        return;
+      }
+      if (currentWord.length === 5 && letter !== "DELETE") return;
+
       setWords((current) => {
-        const currentWord = current[attempt];
         const newWord =
-          letter === "DELETE" || letter === "BACKSPACE"
-            ? currentWord.slice(0, -1)
-            : currentWord + letter;
+          letter === "DELETE" ? currentWord.slice(0, -1) : currentWord + letter;
         const value = [...current];
         value[attempt] = newWord;
         return value;
       });
     },
-    [attempt]
+    [attempt, words]
   );
+
+  const submitAnswer = (answer: string) => {
+    //to-do
+  };
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!isValidInput(e.key)) return;
-      handleKeyClick(e.key.toUpperCase());
+      const keyboardInput =
+        e.key.toUpperCase() === "BACKSPACE" ? "DELETE" : e.key.toUpperCase();
+      // map 'BACKSPACE' into 'DELETE' as shown on screen, otherwise no changes
+      handleKeyClick(keyboardInput);
     },
     [handleKeyClick]
   );
