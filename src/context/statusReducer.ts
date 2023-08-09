@@ -34,35 +34,6 @@ export const initialStatus = {
   answerStatus,
 };
 
-interface UpdateStatusProps {
-  key: string;
-  response: string;
-  map: typeof keyboardStatus;
-}
-
-function updateStatus({ key, response, map }: UpdateStatusProps) {
-  const currentResult = [];
-  for (let i = 0; i < response.length; i++) {
-    const letter = response[i];
-    let status = KeyCapStatus.default;
-
-    if (!key.includes(response[i])) {
-      status = KeyCapStatus.wrong;
-    } else if (response[i] === key[i]) {
-      status = KeyCapStatus.perfect;
-    } else {
-      status = KeyCapStatus.correct;
-    }
-
-    map.set(letter, status);
-    currentResult.push(status);
-  }
-  return {
-    keyboardStatus: new Map(map),
-    answerStatus: currentResult,
-  };
-}
-
 export function statusReducer(
   state: StatusState,
   { type, payload }: StatusReducerActions
