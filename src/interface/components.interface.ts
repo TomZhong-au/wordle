@@ -1,6 +1,7 @@
 export interface KeyCapProps {
   letter: string;
   handleKeyClick: (arg: string) => void;
+  status: KeyCapStatus;
 }
 
 export enum KeyCapStatus {
@@ -17,6 +18,7 @@ export interface KeyCapButtonProps {
 export interface AnswerProps {
   answer: string;
   inProgress: boolean;
+  statusArray: KeyCapStatus[];
 }
 
 export interface AnswerWrapperProps {

@@ -85,7 +85,8 @@ export function statusReducer(
         } else {
           status = KeyCapStatus.correct;
         }
-        newMap.set(letter, status);
+        // if already found the correct position, even the next wrong should not change its color on the keyboard
+        if (newMap.get(letter) !== "perfect") newMap.set(letter, status);
         currentRowAnswer.push(status);
       }
       newAnswerStatus[attempt] = currentRowAnswer;

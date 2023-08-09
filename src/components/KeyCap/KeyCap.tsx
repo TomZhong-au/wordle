@@ -7,35 +7,37 @@ import {
 import styled from "styled-components";
 
 // memo is really working here, it prevents all the keys from re-rendering
-const KeyCap = React.memo(({ letter, handleKeyClick }: KeyCapProps) => {
-  return (
-    <StyledButton
-      onClick={() => handleKeyClick(letter)}
-      $status={KeyCapStatus.perfect}
-    >
-      {letter}
-    </StyledButton>
-  );
-});
+const KeyCap = React.memo(
+  ({ letter, handleKeyClick, status = KeyCapStatus.default }: KeyCapProps) => {
+    return (
+      <StyledButton onClick={() => handleKeyClick(letter)} $status={status}>
+        {letter}
+      </StyledButton>
+    );
+  }
+);
 
 export default KeyCap;
 
 const StyledButton = styled.button<KeyCapButtonProps>`
+  font-weight: 600;
   margin: 0.25rem;
   display: inline-block;
+  user-select: none;
   line-height: 1.5;
   min-width: 3.4em;
   height: 3em;
   background-color: ${(props) => keyStyles[props.$status].bg};
   color: ${(props) => keyStyles[props.$status].color};
+  transition: 1s;
   &:focus {
     outline: 4px auto green;
   }
 `;
 
 const keyStyles = {
-  default: { bg: "#f9f9f9", color: "black" },
-  wrong: { bg: "gray", color: "#414141" },
+  default: { bg: "#dad9d9", color: "black" },
+  wrong: { bg: "gray", color: "white" },
   correct: { bg: "orange", color: "#f9f9f9" },
   perfect: { bg: "green", color: "white" },
 };

@@ -25,10 +25,15 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  /* display: flex; */
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+body::after {
+  background-image: url("https://img.freepik.com/premium-vector/vector-seamless-pattern-money-currency-business-finance-is-made-line-icons-perfect-web-sites-wraps-wallpapers-postcards_387335-450.jpg");
+  background-repeat: repeat;
 }
 
 h1 {
