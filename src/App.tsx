@@ -15,7 +15,7 @@ function App() {
         answer area
         <div>
           {words.map((word, index) => (
-            <Answer answer={word} key={index} inProgress={index === attempt} />
+            <Answer answer={word} inProgress={index === attempt} key={index} />
           ))}
         </div>
       </AnswerSection>
