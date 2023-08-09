@@ -13,6 +13,8 @@ const Answer = React.memo(({ answer, inProgress }: AnswerProps) => {
 
   return (
     <AnswerWrapper $isSelected={inProgress}>
+      {/* `$isSelected`, transient props in styled component, this props does not pass to DOM and will not cause error in console */}
+
       {completeAnswer.split("").map((letter, index) => (
         <KeyCap letter={letter} handleKeyClick={emptyFn} key={index} />
       ))}
