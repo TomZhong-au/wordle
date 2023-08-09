@@ -10,14 +10,14 @@ function App() {
   return (
     <ContentWrapper>
       this is the main content.
+      {/* `$count`, transient props in styled component, this props does not pass to DOM and will not cause error in console */}
       <AnswerSection>
         answer area
-        <Answer answer={words[0]} />
-        <Answer answer={words[1]} />
-        <Answer answer={words[2]} />
-        <Answer answer={words[3]} />
-        <Answer answer={words[4]} />
-        <Answer answer={words[5]} />
+        <div>
+          {words.map((word, index) => (
+            <Answer answer={word} key={index} inProgress={index === attempt} />
+          ))}
+        </div>
       </AnswerSection>
       <KeyboardSection>
         {keyboardLayout.map((row, index) => {
@@ -47,9 +47,7 @@ const ContentWrapper = styled.div`
   width: 640px;
 `;
 
-const KeyboardSection = styled.div`
-  outline: 1px blue solid;
-`;
+const KeyboardSection = styled.div``;
 
 const AnswerSection = styled.div`
   outline: 1px yellow solid;
