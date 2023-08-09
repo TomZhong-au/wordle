@@ -13,4 +13,12 @@ export default KeyCap;
 
 const StyledButton = styled.button`
   margin: 0.25rem;
+  display: inline-block;
+  line-height: 1.5;
+  min-width: 3.4em;
+  height: 3em;
+
+  &:focus {
+    outline: 4px auto green;
+  }
 `;
