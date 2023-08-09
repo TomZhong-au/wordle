@@ -1,56 +1,23 @@
 import "./App.css";
 import styled from "styled-components";
-import { keyboardLayout } from "./data/keyboard";
-import KeyCap from "./components/KeyCap/KeyCap";
-import { useTextContext } from "./context/useTextContext";
-import Answer from "./components/Answer/Answer";
-import { KeyCapStatus } from "./interface/components.interface";
+import Copyright from "./components/Copyright/Copyright";
+import GameResult from "./components/GameResult/GameResult";
+import AnswerSection from "./components/Answer/AnswerSection";
+import Keyboard from "./components/Keyboard/Keyboard";
 
 function App() {
-  const { handleKeyClick, attempt, words, status } = useTextContext();
   return (
     <BackgroundImg>
       <ContentWrapper>
-        this is the main content.
-        {/* `$count`, transient props in styled component, this props does not pass to DOM and will not cause error in console */}
-        <AnswerSection>
-          answer area
-          <div>
-            {words.map((word, index) => (
-              <Answer
-                answer={word}
-                inProgress={index === attempt}
-                statusArray={status.answerStatus[index]}
-                key={index}
-              />
-            ))}
-          </div>
-        </AnswerSection>
-        <KeyboardSection>
-          {keyboardLayout.map((row, index) => {
-            return (
-              <div key={index}>
-                {row.map((letter) => (
-                  <KeyCap
-                    letter={letter}
-                    key={letter}
-                    handleKeyClick={handleKeyClick}
-                    status={
-                      status.keyboardStatus.get(letter) || KeyCapStatus.default
-                    }
-                  />
-                ))}
-              </div>
-            );
-          })}
-        </KeyboardSection>
-        <CopyRight>
-          <div>© Copyright Rensi (Tom) Zhong</div>
-          <a href="https://www.freepik.com/free-vector/geometric-shape-lines-background_25694301.htm#query=pattern%20business&position=48&from_view=keyword&track=ais">
-            Image by vector_corp
-          </a>{" "}
-          on Freepik
-        </CopyRight>
+        <h2> Welcome to the Wordle</h2>
+
+        <AnswerSection />
+
+        <GameResult />
+
+        <Keyboard />
+
+        <Copyright />
       </ContentWrapper>
     </BackgroundImg>
   );
@@ -68,12 +35,6 @@ const ContentWrapper = styled.div`
   color: white;
 `;
 
-const KeyboardSection = styled.div``;
-
-const AnswerSection = styled.div`
-  margin-block: 3rem;
-`;
-
 const imageUrl =
   // "https://img.freepik.com/free-vector/realistic-hexagonal-background_79603-1646.jpg?w=1380&t=st=1691584948~exp=1691585548~hmac=cb64efa56eb70d501d5903f7ea018cf3451a04d54fe0cec8f4f6fd29bce781c0";
   "https://img.freepik.com/free-photo/abstract-blue-painting_53876-88652.jpg?w=1380&t=st=1691584639~exp=1691585239~hmac=d9cc59597ac7c36ac8efd7a00799aabccdf6ba1891b10070d6e1a08372169ede";
@@ -87,13 +48,4 @@ const BackgroundImg = styled.div`
   background-repeat: repeat;
   background-size: cover;
   position: relative;
-`;
-
-const CopyRight = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  color: #b5b5b5;
 `;

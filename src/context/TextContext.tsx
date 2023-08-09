@@ -95,7 +95,9 @@ export const TextContextProvider = ({
   }, [attempt]);
 
   return (
-    <TextContext.Provider value={{ words, handleKeyClick, attempt, status }}>
+    <TextContext.Provider
+      value={{ words, handleKeyClick, attempt, status, gameStatus }}
+    >
       {children}
     </TextContext.Provider>
   );

@@ -5,6 +5,7 @@ export type TextContextType = {
   handleKeyClick: (arg: string) => void;
   attempt: number;
   status: StatusState;
+  gameStatus: GameStatusOptions;
 };
 
 export type GameStatusOptions = "win" | "lose" | "playing";

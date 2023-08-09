@@ -29,7 +29,7 @@ const StyledButton = styled.button<KeyCapButtonProps>`
   height: 3em;
   background-color: ${(props) => keyStyles[props.$status].bg};
   color: ${(props) => keyStyles[props.$status].color};
-  transition: 1s;
+  transition: 0.8s ease-in-out;
   &:focus {
     outline: 4px auto green;
   }
