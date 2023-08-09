@@ -18,7 +18,7 @@ export const TextContextProvider = ({
       setWords((current) => {
         const currentWord = current[attempt];
         const newWord =
-          letter === "←" || letter === "BACKSPACE"
+          letter === "DELETE" || letter === "BACKSPACE"
             ? currentWord.slice(0, -1)
             : currentWord + letter;
         const value = [...current];
@@ -52,7 +52,7 @@ export const TextContextProvider = ({
 
 function isValidInput(letter: string) {
   if (letter.length > 1) {
-    return letter.toUpperCase() === "BACKSPACE";
+    return ["BACKSPACE", "ENTER"].includes(letter.toUpperCase());
   } else {
     return /[a-z]/i.test(letter);
   }
