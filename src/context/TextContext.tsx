@@ -1,10 +1,17 @@
-import { useState, createContext, useEffect, useCallback } from "react";
+import {
+  useState,
+  createContext,
+  useEffect,
+  useCallback,
+  useReducer,
+} from "react";
 import {
   GameStatusOptions,
   TextContextType,
 } from "../interface/context.interface";
+import { answerStatus, keyboardStatus, statusReducer } from "./statusReducer";
 
-const initialValue = ["", "", "", "", "", ""];
+const initialWords = ["", "", "", "", "", ""];
 
 export const TextContext = createContext<TextContextType | null>(null);
 
@@ -13,9 +20,16 @@ export const TextContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [words, setWords] = useState(initialValue);
+  const correctAnswer = "INDIA";
+
+  const [words, setWords] = useState(initialWords);
   const [attempt, setAttempt] = useState(0); //start with 0 to be in accord with array index
   const [gameStatus, setGameStatus] = useState<GameStatusOptions>("playing");
+
+  const [status, dispatch] = useReducer(statusReducer, {
+    keyboardStatus,
+    answerStatus,
+  });
 
   // the useCallback was originally used to prevent the <KeyCap/> component from re-rendering, as the <KeyCap/> has already used React.memo.
   // however, this handleKeyClick function need to access the `words` state to decide its own behavior
@@ -25,7 +39,6 @@ export const TextContextProvider = ({
   const handleKeyClick = useCallback(
     (letter: string) => {
       const currentWord = words[attempt];
-
       // two input guards here,
       // 1. The 'ENTER' key, only let it submit when there are 5 letters, otherwise do nothing
       // 2. if there are already 5 letters, do nothing , unless it is 'delete
@@ -47,15 +60,18 @@ export const TextContextProvider = ({
   );
 
   const submitAnswer = (answer: string) => {
-    //to-do
     console.log("answer submitted");
+    if (answer === correctAnswer) return setGameStatus("win");
+    dispatch({
+      type: "submit",
+      payload: {
+        key: correctAnswer,
+        response: answer,
+        attempt: attempt,
+      },
+    });
     setAttempt((current) => current + 1);
   };
-
-  useEffect(() => {
-    //should have be attemps, but change the starting number to 0, so it is 5
-    if (attempt > 5) setGameStatus("lose");
-  }, [attempt]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -70,12 +86,18 @@ export const TextContextProvider = ({
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
-
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
 
+  useEffect(() => {
+    //should have be 6 attemps, but change the starting number to 0, so it is 5
+    if (attempt > 5) setGameStatus("lose");
+  }, [attempt]);
+
   return (
-    <TextContext.Provider value={{ words, handleKeyClick, attempt }}>
+    <TextContext.Provider
+      value={{ words, handleKeyClick, attempt, status, gameStatus }}
+    >
       {children}
     </TextContext.Provider>
   );
