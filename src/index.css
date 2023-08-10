@@ -31,11 +31,6 @@ body {
   min-height: 100vh;
 }
 
-body::after {
-  background-image: url("https://img.freepik.com/premium-vector/vector-seamless-pattern-money-currency-business-finance-is-made-line-icons-perfect-web-sites-wraps-wallpapers-postcards_387335-450.jpg");
-  background-repeat: repeat;
-}
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
